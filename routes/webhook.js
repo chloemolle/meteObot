@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var chatService = require('../server/chatService');
+
 
 /* GET hello world page. */
 router.get('/', function(req, res, next) {
-  res.send('BC2BDF2FF576CA3F169AE4AAB8A9F');
+	if(chatService.authenticate(req)){
+  		res.status(200).send(req.query['hub.challenge']);
+	}else{
+		res.sendStatus(403);
+	}
 });
 
 module.exports = router;
