@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var chatService = require('../server/chatService');
+var userService = require('../server/userService');
 
 
 /* GET hello world page. */
@@ -13,6 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function (req, res) {
+
   var data = req.body;
 
   // Make sure this is a page subscription
@@ -25,6 +27,13 @@ router.post('/', function (req, res) {
 
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
+
+      	if(!userService.isUserKnown(event.sender.id)){
+					userService.addUser(event.sender.id, event.sender);
+					chatService.sendTextMessage(event.sender.id, "Hello, you newcomer");
+					console.log("User unknown, sending welcome message")
+				}
+
         if (event.message) {
           receivedMessage(event);
         } else {
