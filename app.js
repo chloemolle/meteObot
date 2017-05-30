@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
 
 app.get('/webhook', function(req, res) {
   if(authenticate(req)){
-  	res.status(200).send(req.query['hub.challenge']);
+  	res.status(200).send("BC2BDF2FF576CA3F169AE4AAB8A9F");
   }else{
   	res.sendStatus(403);  
   }
