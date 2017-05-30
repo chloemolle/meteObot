@@ -45,7 +45,7 @@ router.post('/', function (req, res) {
 function receivedMessage(event) {
   // Putting a stub for now, we'll expand it in the following steps
   console.log("Message data: ", event.message);
-  chatService.sendTextMessage(event.sender.id, event.message);
+  chatService.sendTextMessage(event.sender.id, event.message.text);
 }
 
 module.exports = router;
