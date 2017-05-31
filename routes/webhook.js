@@ -28,14 +28,14 @@ router.post('/', function (req, res) {
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
 
-      	if(!userService.isUserKnown(event.sender.id)){
-					userService.addUser(event.sender.id, event.sender);
-					chatService.sendTextMessage(event.sender.id, "Hello, you newcomer");
-					console.log("User unknown, sending welcome message")
-				}
-
         if (event.message) {
-          receivedMessage(event);
+          if(!userService.isUserKnown(event.sender.id)){
+            userService.addUser(event.sender.id, event.sender);
+            chatService.sendTextMessage(event.sender.id, "Hello, you newcomer, please enter a city name");
+            console.log("User unknown, sending welcome message")
+          }else{
+            receivedMessage(event);
+          }
         } else {
           console.log("Webhook received unknown event: ", event);
         }
