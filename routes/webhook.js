@@ -3,6 +3,7 @@ var router = express.Router();
 var chatService = require('../server/chatService');
 var userService = require('../server/userService');
 var weatherService = require('../server/weatherService');
+var parser = require('json-parser');
 
 /* GET hello world page. */
 router.get('/', function(req, res, next) {
