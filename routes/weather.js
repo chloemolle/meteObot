@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
 		var coords = parsedData.results[0].geometry.location;
 		console.log(coords);
 		weatherService.getWeatherForecast(coords.lat, coords.lng).then(function(data){
-			res.send(data);
+			var parsedWeather = parser.parse(data);
+			res.send(parsedWeather.list[0].temp);
 			//res.send("lat: " + coords.lat + " and long: " + coords.lng);
 		});
 	});
