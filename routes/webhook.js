@@ -69,8 +69,16 @@ function receivedMessage(event) {
         var temps = parsedWeather.list[0].temp;
         var min = Number(temps.min)-273.15;
         var max = Number(temps.max)-273.15;
-        chatService.sendTextMessage(event.sender.id, "min: " + min.toFixed(0) + " and max: " + min.toFixed(0));
-        //chatService.sendTextMessage(event.sender.id, "received");
+        //chatService.sendTextMessage(event.sender.id, "min: " + min.toFixed(0) + " and max: " + min.toFixed(0));
+        
+        var carousel = [
+           {
+            "title":parsedWeather.display_date,
+            "image_url":parsedWeather.forecast.image,
+            "subtitle":"min: " + min.toFixed(0) + " and max: " + max.toFixed(0),
+          }]
+
+        chatService.sendCarouselReply(event.sender.id, carousel);
       });
       //chatService.sendTextMessage(event.sender.id, "lat: " + coords.lat + " and long: " + coords.lng);
     }else{
