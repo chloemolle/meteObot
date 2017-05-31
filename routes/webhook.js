@@ -4,6 +4,7 @@ var chatService = require('../server/chatService');
 var userService = require('../server/userService');
 var weatherService = require('../server/weatherService');
 var parser = require('json-parser');
+var weatherData = require('../server/model/weatherData')
 
 /* GET hello world page. */
 router.get('/', function(req, res, next) {
@@ -71,14 +72,17 @@ function receivedMessage(event) {
         var max = Number(temps.max)-273.15;
         //chatService.sendTextMessage(event.sender.id, "min: " + min.toFixed(0) + " and max: " + min.toFixed(0));
         
+        weatherData.WeatherData(data);
+        //console.log(weatherData.forecast[0].weather.image);
+
         var carousel = [
            {
-            "title":parsedWeather.display_date,
-            "image_url":parsedWeather.forecast.image,
+            "title":weatherData.forecast[0].display_date,
+            "image_url":weatherData.forecast[0].weather.image,
             "subtitle":"min: " + min.toFixed(0) + " and max: " + max.toFixed(0),
-          }]
-
-        chatService.sendCarouselReply(event.sender.id, carousel);
+          }];
+          
+          chatService.sendCarouselReply(event.sender.id, carousel);
       });
       //chatService.sendTextMessage(event.sender.id, "lat: " + coords.lat + " and long: " + coords.lng);
     }else{

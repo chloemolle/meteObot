@@ -81,4 +81,6 @@ function WeatherData(openWeatherMapRawData) {
 };
 
 // Export the model
-module.exports = WeatherData;
+module.exports = {
+  WeatherData:WeatherData
+}
