@@ -33,12 +33,12 @@ router.post('/', function (req, res) {
         if (event.message) {
            console.log("After if event message");
           if(!userService.isUserKnown(event.sender.id)){
+            console.log("User unknown, sending welcome message")
             userService.addUser(event.sender.id, event.sender);
             chatService.sendTextMessage(event.sender.id, "Hello, you newcomer, please enter a city name");
-            console.log("User unknown, sending welcome message")
           }else{
-            receivedMessage(event);
             console.log("User is known");
+            receivedMessage(event);
           }
         } else {
           console.log("Webhook received unknown event: ", event);
