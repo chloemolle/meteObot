@@ -36,6 +36,7 @@ router.post('/', function (req, res) {
             console.log("User unknown, sending welcome message")
           }else{
             receivedMessage(event);
+            console.log("User is known");
           }
         } else {
           console.log("Webhook received unknown event: ", event);
