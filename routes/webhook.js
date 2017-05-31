@@ -61,13 +61,17 @@ function receivedMessage(event) {
   //chatService.sendTextMessage(event.sender.id, "HUEHUEHUE");
   weatherService.getGeolocalisation(event.message.text).then(function(data){
     var parsedData = parser.parse(data);
-    var coords = parsedData.results[0].geometry.location;
-    console.log(coords);
-    /*weatherService.getWeatherForecast(coords.lat, coords.lng).then(function(data){
-      res.send(data);
-      //res.send("lat: " + coords.lat + " and long: " + coords.lng);
-    });*/
-    chatService.sendTextMessage(event.sender.id, "lat: " + coords.lat + " and long: " + coords.lng);
+    if(parsedData.results[0]){
+      var coords = parsedData.results[0].geometry.location;
+      console.log(coords);
+      /*weatherService.getWeatherForecast(coords.lat, coords.lng).then(function(data){
+        res.send(data);
+        //res.send("lat: " + coords.lat + " and long: " + coords.lng);
+      });*/
+      chatService.sendTextMessage(event.sender.id, "lat: " + coords.lat + " and long: " + coords.lng);
+    }else{
+      chatService.sendTextMessage(event.sender.id, "Please, fuck off.");
+    }
   });
   
 }
