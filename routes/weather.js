@@ -11,7 +11,10 @@ router.get('/', function(req, res, next) {
 		console.log(coords);
 		weatherService.getWeatherForecast(coords.lat, coords.lng).then(function(data){
 			var parsedWeather = parser.parse(data);
-			res.send(parsedWeather.list[0].temp);
+			var temps = parsedWeather.list[0].temp;
+			var min = Number(temps.min)-273.15;
+			var max = Number(temps.max)-273.15;
+			res.send("min: " + min.toFixed(0) + " and max: " + min.toFixed(0));
 			//res.send("lat: " + coords.lat + " and long: " + coords.lng);
 		});
 	});

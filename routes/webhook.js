@@ -67,7 +67,9 @@ function receivedMessage(event) {
       weatherService.getWeatherForecast(coords.lat, coords.lng).then(function(data){
         var parsedWeather = parser.parse(data);
         var temps = parsedWeather.list[0].temp;
-        chatService.sendTextMessage(event.sender.id, "min: " + temps.min-273,15 + " and max: " + temps.max-273,15);
+        var min = Number(temps.min)-273.15;
+        var max = Number(temps.max)-273.15;
+        chatService.sendTextMessage(event.sender.id, "min: " + min.toFixed(0) + " and max: " + min.toFixed(0));
         //chatService.sendTextMessage(event.sender.id, "received");
       });
       //chatService.sendTextMessage(event.sender.id, "lat: " + coords.lat + " and long: " + coords.lng);
