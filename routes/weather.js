@@ -5,7 +5,7 @@ var parser = require('json-parser');
 
 /* GET hello world page. */
 router.get('/', function(req, res, next) {
-	weatherService.getGeolocalisation("Brest").then(function(data){
+	weatherService.getGeolocalisation("prout").then(function(data){
 		var parsedData = parser.parse(data);
 		var coords = parsedData.results[0].geometry.location;
 		console.log(coords);

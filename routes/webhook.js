@@ -29,7 +29,9 @@ router.post('/', function (req, res) {
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
 
+        console.log("Before if event message");
         if (event.message) {
+           console.log("After if event message");
           if(!userService.isUserKnown(event.sender.id)){
             userService.addUser(event.sender.id, event.sender);
             chatService.sendTextMessage(event.sender.id, "Hello, you newcomer, please enter a city name");
