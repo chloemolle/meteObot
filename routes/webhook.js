@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var chatService = require('../server/chatService');
 var userService = require('../server/userService');
+//var weather = require('weather')
 
 
 /* GET hello world page. */
@@ -54,7 +55,17 @@ router.post('/', function (req, res) {
 function receivedMessage(event) {
   // Putting a stub for now, we'll expand it in the following steps
   console.log("Message data: ", event.message);
-  chatService.sendTextMessage(event.sender.id, event.message.text);
+  weatherService.getGeolocalisation(event.message.text).then(function(data){
+    var parsedData = parser.parse(data);
+    var coords = parsedData.results[0].geometry.location;
+    console.log(coords);
+    /*weatherService.getWeatherForecast(coords.lat, coords.lng).then(function(data){
+      res.send(data);
+      //res.send("lat: " + coords.lat + " and long: " + coords.lng);
+    });*/
+    chatService.sendTextMessage(event.sender.id, "lat: " + coords.lat + " and long: " + coords.lng);
+  });
+  
 }
 
 module.exports = router;
